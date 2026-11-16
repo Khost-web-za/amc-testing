@@ -1,0 +1,23 @@
+name: Publish to allminecraft
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd pack && zip -r ../pack.zip .
+      - id: amc
+        uses: ./.github/actions/publish
+        with:
+          post-id: ${{ vars.AMC_POST_ID }}
+          api-url: ${{ vars.AMC_API_URL }}
+          files: pack.zip
+      - run: echo "status=${{ steps.amc.outputs.status }} release=${{ steps.amc.outputs.release-id }} url=${{ steps.amc.outputs.release-url }}"

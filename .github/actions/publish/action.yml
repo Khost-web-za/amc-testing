@@ -1,0 +1,52 @@
+name: Publish to allminecraft
+description: Publish a release of your allminecraft post from a GitHub Actions workflow, with a signed build attestation.
+author: allminecraft
+branding:
+  icon: upload-cloud
+  color: green
+inputs:
+  post-id:
+    description: The numeric id of your post on allminecraft.
+    required: true
+  files:
+    description: Glob of the files to publish (1 to 3 matches). Use several lines to exclude files, for example a line starting with ! for build/libs/*-sources.jar.
+    required: true
+  primary:
+    description: File name of the primary file. Defaults to the match with the shortest file name.
+    required: false
+  version:
+    description: Release version. Defaults to the tag name without a leading "v".
+    required: false
+  name:
+    description: Release name.
+    required: false
+  channel:
+    description: One of release, beta or alpha. Defaults from the GitHub release (prerelease is beta, or alpha if the tag contains "alpha"), else release.
+    required: false
+  changelog:
+    description: Changelog in Markdown. Defaults to the GitHub release body.
+    required: false
+  loaders:
+    description: Comma-separated loaders, for example "fabric,forge".
+    required: false
+  game-versions:
+    description: Comma-separated Minecraft versions, for example "1.21.1,1.21.4".
+    required: false
+  api-url:
+    description: The allminecraft site to publish to. Change it only to publish to staging.
+    required: false
+    default: https://allminecraft.net
+  github-token:
+    description: Lets the build attestation be stored on GitHub. Never sent to allminecraft.
+    required: false
+    default: ${{ github.token }}
+outputs:
+  release-id:
+    description: The id of the created release.
+  release-url:
+    description: The URL of the post's releases page.
+  status:
+    description: The release status, approved (live now) or pending (awaiting review).
+runs:
+  using: node24
+  main: dist/index.js
