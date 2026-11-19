@@ -63542,6 +63542,8 @@ var DOCUMENTED_CODES = /* @__PURE__ */ new Set([
   "archive_rejected",
   "invalid_loaders",
   "invalid_game_versions",
+  "missing_loaders",
+  "missing_game_versions",
   "hash_mismatch",
   "upload_incomplete",
   "session_not_found",
