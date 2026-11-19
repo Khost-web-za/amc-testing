@@ -60835,7 +60835,7 @@ function createApiClient({
   }
   return {
     async start(body) {
-      const response = await request2(`${base}/api/publish/v1/releases`, () => ({
+      const response = await request2(`${base}/api/publish/v1/releases/`, () => ({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -60857,7 +60857,7 @@ function createApiClient({
     },
     async complete(sessionId) {
       const response = await request2(
-        `${base}/api/publish/v1/sessions/${sessionId}/complete`,
+        `${base}/api/publish/v1/sessions/${sessionId}/complete/`,
         () => ({ method: "POST" })
       );
       return await response.json();
